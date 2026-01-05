@@ -7,7 +7,7 @@ deployment:
 environment: "dev"
 
 image: 
-  repository: "708735187026.dkr.ecr.us-east-1.amazonaws.com/dev_ecr_repo"
+  repository: "723065234256.dkr.ecr.us-east-1.amazonaws.com/dev_ecr_repo"  # find a way to replace the aws account dynamically for argocd
   tag: v2
 
 resourceLimits:
@@ -21,4 +21,4 @@ resourceRequests:
 service:
   type: NodePort
   port: 80
-  nodePort: 30080
+  nodePort: 30081

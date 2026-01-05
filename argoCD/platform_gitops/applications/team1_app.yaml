@@ -1,0 +1,55 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: fastapi-app
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  project: team1-project
+  source:
+    repoURL: https://github.com/NaveenKumar-Y/kubernetes
+    targetRevision: HEAD
+    path: FastApi_app  # Your Helm chart folder
+    helm:
+      valueFiles:
+      - values.yaml  # Or whatever your dev values file is
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: app1
+  syncPolicy:
+    syncOptions:
+    - CreateNamespace=true
+    automated:
+      prune: true
+      selfHeal: true
+
+
+
+
+
+# apiVersion: argoproj.io/v1alpha1
+# kind: Application
+# metadata:
+#   name: fastapi-app
+#   namespace: argocd # Must match the namespace where Argo CD is installed
+#   finalizers:
+#     - resources-finalizer.argocd.argoproj.io # Optional: enables cascading deletes
+# spec:
+#   project: team1-project # The Argo CD project the app belongs to
+
+#   source:
+#     repoURL: https://github.com/NaveenKumar-Y/kubernetes
+#     targetRevision: HEAD
+#     path: ./FastApi_app # Path to the manifests within the repository
+
+#   destination:
+#     server: https://kubernetes.default.svc
+#     namespace: app1 # The target K8s namespace for the deployed app
+
+#   syncPolicy:
+#     syncOptions:
+#       - CreateNamespace=true # Automatically create the target namespace if it doesn't exist
+#   #   automated:
+#   #     prune: true # Allows Argo CD to delete resources that are no longer in Git
+#   #     selfHeal: true # Allows Argo CD to sync live state to desired state if it drifts
