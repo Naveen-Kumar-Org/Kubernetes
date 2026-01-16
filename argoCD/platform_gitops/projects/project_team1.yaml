@@ -1,0 +1,63 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: team1-project
+  namespace: argocd
+spec:
+  description: "Team 1 project"
+  destinations:
+  - namespace: '*'  # Restrict to app1 namespace only
+    server: https://kubernetes.default.svc
+  sourceRepos:
+  - 'https://github.com/NaveenKumar-Y/*'  # Specific repo only
+  clusterResourceWhitelist:  # ← KEY: Allows cluster-wide resources
+  - group: ''
+    kind: Namespace
+  
+  namespaceResourceWhitelist:  # Namespaced resources
+  - group: ''
+    kind: '*'
+
+
+
+
+
+
+
+
+
+
+
+# apiVersion: argoproj.io/v1alpha1
+# kind: AppProject
+# metadata:
+#   name: team1-project
+#   namespace: argocd # Must be in the same namespace as the Argo CD installation
+# spec:
+#   description: This is an team1 project
+#   # Allow applications to be deployed to the 'in-cluster' server in the  namespace
+#   destinations:
+#   - namespace: app1
+#     server: https://kubernetes.default.svc
+#     name: in-cluster
+#   # Allow applications to source from this Git repository
+#   sourceRepos:
+#   - 'https://github.com/NaveenKumar-Y/*'
+#   # Deny all cluster-scoped resources from being deployed
+#   # clusterResourceWhitelist:
+#   # - group: ''
+#   #   kind: ResourceQuota
+#   # Allow all namespaced-scoped resources
+#   # namespaceResourceWhitelist:
+#   # - group: '*'
+#   #   kind: '*'
+#   # Define roles and specify access control policies (optional)
+#   # roles:
+#   # - name: custom-project-role
+#   #   description: A role with limited application access
+#   #   policies:
+#   #   - p, proj:example-project:custom-project-role, applications, get, example-project/*, allow
+#     # Bind the role to a OIDC group (optional)
+#     # groups:
+#     # - some-user-group
+
