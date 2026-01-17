@@ -16,7 +16,7 @@ spec:
     helm:
       valueFiles:
       # $config-source always refers to the ROOT of the Git repo
-      - $config-source/aws_practise_kodekloud/argoCD/platform_gitops/applications/team1/values-dev.yaml
+      - $config-source/argoCD/platform_gitops/applications/team1/values-dev.yaml
       # - values-dev.yaml  # Or whatever your dev values file is --> this refers file in the targetPath
   destination:
     server: https://kubernetes.default.svc
