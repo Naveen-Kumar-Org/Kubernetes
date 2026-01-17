@@ -1,0 +1,26 @@
+namespace : app1
+
+AWS_ACCOUNT_ID : 723065234256
+
+deployment:
+  replicas: 2
+  port: 8000
+
+environment: "dev"
+
+image: 
+  repository: "dev_ecr_repo"
+  tag: v2
+
+resourceLimits:
+  memory: "256Mi"
+  cpu: "500m"
+
+resourceRequests:
+  memory: "128Mi"
+  cpu: "250m"
+
+service:
+  type: NodePort
+  port: 80
+  nodePort: 30081
