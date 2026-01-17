@@ -1,0 +1,41 @@
+name: push helm chart to ECR repo
+
+on:
+  push:
+    branches:
+      - main
+
+jobs: 
+  push-helm-chart:
+    runs-on: self-hosted
+    if: contains(github.event.head_commit.message, '[helm-push]')
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v2
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: us-east-1
+
+    - name: Login to Amazon ECR
+      id: login-ecr
+      uses: aws-actions/amazon-ecr-login@v1
+
+    - name: Build and Push Helm Chart to ECR
+      env:
+        ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+        ECR_REPOSITORY: helm/fastapi-app
+        CHART_DIR: ./Helm/FastApi_app
+      run: |
+        # 1. Package the chart
+        helm package $CHART_DIR
+
+        # 2. Push the packaged chart to ECR OCI registry
+        helm push fastapi-app-*.tgz oci://$ECR_REGISTRY/$ECR_REPOSITORY
+
+        # 3. Clean up the generated tgz file
+        rm fastapi-app-*.tgz
