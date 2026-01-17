@@ -11,10 +11,10 @@ spec:
   source:
     repoURL: https://github.com/NaveenKumar-Y/kubernetes
     targetRevision: HEAD
-    path: FastApi_app  # Your Helm chart folder
+    path: Helm/FastApi_app  # Your Helm chart folder
     helm:
       valueFiles:
-      - values.yaml  # Or whatever your dev values file is
+      - values-dev.yaml  # Or whatever your dev values file is
   destination:
     server: https://kubernetes.default.svc
     namespace: app1
