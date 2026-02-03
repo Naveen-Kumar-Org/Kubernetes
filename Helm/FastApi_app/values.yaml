@@ -1,6 +1,6 @@
 namespace : app1
 
-AWS_ACCOUNT_ID : 975049976794
+AWS_ACCOUNT_ID : "975049976794"
 
 deployment:
   replicas: 2
