@@ -21,6 +21,6 @@ resourceRequests:
   cpu: "250m"
 
 service:
-  type: NodePort
+  type: LoadBalancer
   port: 80
   nodePort: 30081
