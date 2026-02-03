@@ -26,7 +26,9 @@ jobs:
       uses: aws-actions/amazon-ecr-login@v1
 
     - name: Build and Push Helm Chart to ECR
-      uses: azure/helm@v1
+      uses: azure/setup-helm@v4
+      with:
+        version: v7.6.2
       env:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
         ECR_REPOSITORY: helm/fastapi-app
