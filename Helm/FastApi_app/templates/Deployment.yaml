@@ -5,6 +5,15 @@ metadata:
   labels:
     app: fastapi-{{ .Values.environment }}
   namespace: {{ .Values.namespace | default "app1" }}
+  annotations:
+    # 1. Use the recommended AWS Load Balancer Controller
+    service.beta.kubernetes.io/aws-load-balancer-type: "external"
+    
+    # 2. Force the LB to be accessible from the internet
+    service.beta.kubernetes.io/aws-load-balancer-scheme: "internet-facing"
+    
+    # 3. Use 'ip' mode for better performance with AWS CNI
+    service.beta.kubernetes.io/aws-load-balancer-nlb-target-type: "ip"
 spec:
   replicas: {{ .Values.deployment.replicas }}
   selector:
