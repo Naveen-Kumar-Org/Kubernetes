@@ -13,10 +13,10 @@ spec:
     targetRevision: HEAD
     path: Helm/FastApi_app  # Your Helm chart folder
     ref: config-source # Alias for Git source
-    helm:
-      valueFiles:
-      # $config-source always refers to the ROOT of the Git repo
-      - $config-source/argoCD/platform_gitops/applications/team1/values-dev.yaml
+    # helm:
+      # valueFiles:
+      # # $config-source always refers to the ROOT of the Git repo
+      # - $config-source/argoCD/platform_gitops/applications/team1/values-dev.yaml
       # - values-dev.yaml  # Or whatever your dev values file is --> this refers file in the targetPath
 
     ## for HELM chart from aws ecr
